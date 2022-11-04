@@ -2,6 +2,8 @@ import DB from "./lib/DB";
 
 import API from "./lib/API";
 
+import "./tasks";
+
 void (async function main (): Promise<void> {
     await DB.init();
     console.log("DB initialized");
