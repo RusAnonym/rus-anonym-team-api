@@ -7,7 +7,7 @@ interface IUser {
 }
 
 const user = new Schema({
-    id: { type: Schema.Types.Number, required: true },
+    id: { type: Schema.Types.Number, required: true, unique: true },
     telegram: { type: Schema.Types.String, required: false },
     github: { type: Schema.Types.String, required: false },
 }, {
