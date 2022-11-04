@@ -1,6 +1,7 @@
 import DB from "./lib/DB";
 
 import API from "./lib/API";
+import "./lib/API/methods";
 
 import "./tasks";
 
