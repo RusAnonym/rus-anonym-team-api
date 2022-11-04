@@ -2,14 +2,11 @@ import mongoose from "mongoose";
 
 import config from "../../DB/config";
 
-import Cache from "./Cache";
 import UsersCollection from "./collections/users";
 
 class DB {
     public readonly config = config;
-    public readonly cache = new Cache();
     public readonly connection: mongoose.Connection;
-
 
     public readonly users: UsersCollection;
 
