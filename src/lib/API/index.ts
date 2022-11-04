@@ -1,6 +1,6 @@
 import fs from "node:fs";
 
-import config from "../../DB/config";
+import DB from "../DB";
 
 import Fastify from "fastify";
 
@@ -13,9 +13,9 @@ import helmet from "@fastify/helmet";
 import APIError from "./error";
 
 const server = Fastify({
-    https: config.server.cert && config.server.key ? {
-        key: fs.readFileSync(config.server.key),
-        cert: fs.readFileSync(config.server.cert),
+    https: DB.config.server.cert && DB.config.server.key ? {
+        key: fs.readFileSync(DB.config.server.key),
+        cert: fs.readFileSync(DB.config.server.cert),
     } : null,
 });
 

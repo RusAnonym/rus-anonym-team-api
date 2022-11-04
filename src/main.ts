@@ -1,11 +1,11 @@
-import config from "./DB/config";
+import DB from "./lib/DB";
 
 import API from "./lib/API";
 
 void (async function main (): Promise<void> {
     await API.listen({
-        port: config.server.port,
+        port: DB.config.server.port,
         host: "0.0.0.0"
     });
-    console.log(`API started on port ${config.server.port}`);
+    console.log(`API started on port ${DB.config.server.port}`);
 })();
