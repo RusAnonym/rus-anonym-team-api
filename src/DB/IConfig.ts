@@ -1,8 +1,10 @@
-import { IAPIOptions } from "vk-io";
-
-type TVKOptions = Partial<Omit<IAPIOptions, "token">>;
-
 interface IConfig {
+    db: {
+        protocol: string;
+        address: string;
+        login: string;
+        password: string;
+    };
     server: {
         port: number;
         key?: string;
