@@ -11,7 +11,9 @@ class UsersCollection extends DBCollection<IUser> {
     }
 
     public async get(): Promise<IUser[]> {
-        return this.model.find().lean();
+        return this.model.find({}, {
+            _id: false
+        }).lean();
     }
 }
 
