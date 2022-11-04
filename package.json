@@ -20,6 +20,7 @@
         "@fastify/multipart": "^7.3.0",
         "@fastify/rate-limit": "^7.5.0",
         "fastify": "^4.9.2",
+        "mongoose": "^6.7.1",
         "vk-io": "^4.7.0"
     }
 }
