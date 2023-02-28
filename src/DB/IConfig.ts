@@ -14,6 +14,14 @@ interface IConfig {
         miniapp: {
             token: string;
         };
+        group: {
+            id: number;
+            token: string;
+        };
+    };
+    smssync: {
+        chatId: number;
+        secret: string;
     };
 }
 

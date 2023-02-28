@@ -11,13 +11,15 @@ import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 
 import APIError from "./error";
+import { TypeBoxTypeProvider, TypeBoxValidatorCompiler } from "@fastify/type-provider-typebox";
 
 const server = Fastify({
     https: DB.config.server.cert && DB.config.server.key ? {
         key: fs.readFileSync(DB.config.server.key),
         cert: fs.readFileSync(DB.config.server.cert),
     } : null,
-});
+}).withTypeProvider<TypeBoxTypeProvider>();
+server.setValidatorCompiler(TypeBoxValidatorCompiler);
 
 void server.register(rateLimit, {
     max: 25,
@@ -29,6 +31,17 @@ void server.register(cors, { origin: "*" });
 void server.register(helmet);
 
 server.setReplySerializer((payload) => {
+    const isSmsSync = (payload: unknown): payload is {
+        isSmsSync?: true;
+    } => {
+        return Object.prototype.hasOwnProperty.call(payload, "isSmsSync");
+    };
+
+    if (isSmsSync(payload)) {
+        delete payload.isSmsSync;
+        return JSON.stringify(payload);
+    }
+
     if (Object.prototype.hasOwnProperty.call(payload, "error")) {
         return JSON.stringify(payload);
     } else {
