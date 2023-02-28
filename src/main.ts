@@ -13,8 +13,7 @@ void (async function main (): Promise<void> {
     await Bot.init();
     console.log("VK polling started");
     await API.listen({
-        port: DB.config.server.port,
-        host: "0.0.0.0"
+        port: DB.config.server.port
     });
     console.log(`API started on port ${DB.config.server.port}`);
 })();
