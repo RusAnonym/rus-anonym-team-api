@@ -18,10 +18,14 @@ interface IConfig {
             id: number;
             token: string;
         };
+        adminChatId: number;
     };
     smssync: {
         chatId: number;
         secret: string;
+    };
+    chatgpt: {
+        token: string;
     };
 }
 
