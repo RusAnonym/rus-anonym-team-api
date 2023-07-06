@@ -29,7 +29,7 @@ server.post("/smssync", {
         };
     }
 
-    await Bot.instance.api.messages.send({
+    await Bot.group.api.messages.send({
         message: stripIndents(`
             SMS ${moment(Number(req.body.sent_timestamp)).format("DD.MM.YYYY, HH:mm:ss")}:
             Sender: ${req.body.from}

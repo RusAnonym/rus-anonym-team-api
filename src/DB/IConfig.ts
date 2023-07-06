@@ -18,7 +18,12 @@ interface IConfig {
             id: number;
             token: string;
         };
+        ownerId: number;
         adminChatId: number;
+        admin: {
+            id: number;
+            token: string;
+        };
     };
     smssync: {
         chatId: number;

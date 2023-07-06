@@ -7,15 +7,36 @@ import TextCommand from "./TextCommand";
 class Bot {
     public readonly manager: Manager<TextCommand> = new Manager();
 
-    public readonly instance: VK = new VK({
+    public readonly group: VK = new VK({
         token: DB.config.vk.group.token,
         pollingGroupId: DB.config.vk.group.id,
         apiMode: "parallel"
     });
 
+    public readonly admin: VK = new VK({
+        token: DB.config.vk.admin.token,
+        apiMode: "parallel"
+    });
+
     public init(): Promise<void> {
-        this.instance.updates.on("wall_post_new", async (ctx) => {
-            if (ctx.isRepost || ctx.wall.ownerId !== -DB.config.vk.group.id || !ctx.wall.text) {
+        this.group.updates.on("wall_post_new", async (ctx) => {
+            if (ctx.isRepost || ctx.wall.ownerId !== -DB.config.vk.group.id) {
+                return;
+            }
+
+            if (ctx.wall.createdUserId !== DB.config.vk.ownerId && ctx.wall.signerId === undefined){
+                await ctx.wall.loadAttachmentPayload();
+
+                await this.admin.api.wall.edit({
+                    post_id: ctx.wall.id,
+                    owner_id: ctx.wall.ownerId,
+                    signed: true,
+                    message: ctx.wall.text,
+                    attachments: ctx.wall.attachments.map(x => x.toString())
+                });
+            }
+
+            if (!ctx.wall.text) {
                 return;
             }
 
@@ -39,14 +60,14 @@ class Bot {
                 ]
             });
 
-            await this.instance.api.messages.send({
+            await this.group.api.messages.send({
                 chat_id: DB.config.vk.adminChatId,
                 random_id: getRandomId(),
                 message: `Предлагаемые теги:\n${tags?.content || ""}`,
                 attachment: ctx.wall.toString()
             });
         });
-        return this.instance.updates.start();
+        return this.group.updates.start();
     }
 }
 
