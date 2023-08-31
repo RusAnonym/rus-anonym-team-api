@@ -1,9 +1,6 @@
 interface IConfig {
     db: {
-        protocol: string;
-        address: string;
-        login: string;
-        password: string;
+        mongodb: string;
     };
     server: {
         port: number;

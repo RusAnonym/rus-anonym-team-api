@@ -12,7 +12,7 @@ class DB {
 
     constructor() {
         this.connection = mongoose.createConnection(
-            `${this.config.db.protocol}://${this.config.db.login}:${this.config.db.password}@${this.config.db.address}/`,
+            this.config.db.mongodb,
             {
                 autoCreate: true,
                 autoIndex: true,
