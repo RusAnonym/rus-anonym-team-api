@@ -67,7 +67,6 @@ class Bot {
                 attachment: ctx.wall.toString()
             });
         });
-        this.group.updates.on("message", console.log);
         return this.group.updates.start();
     }
 }
