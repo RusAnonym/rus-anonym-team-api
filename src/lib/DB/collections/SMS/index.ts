@@ -7,7 +7,7 @@ class SMSCollection extends DBCollection<TSmsBox> {
     protected model: Model<TSmsBox>;
     constructor(db: DB) {
         super(db);
-        this.model = db.connection.model("users", schema);
+        this.model = db.connection.model("sms", schema);
     }
 }
 
